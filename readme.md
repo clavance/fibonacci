@@ -1,14 +1,14 @@
 ## Description
 
 An unnecessarily complex web application which allows a user to input an integer index, and returns the corresponding fibonacci term. Using React/Express, nginx, Redis and Postgres. Each component of the application is hosted in its own Docker container. The complete app can be launched with Docker Compose.
-![](http://github.com/clavance/fibonacci/blob/master/app.png)
+![app](http://github.com/clavance/fibonacci/blob/master/app.png)
 
 ## Architecture
 A Postgres database holds all the indices which have been requested by the user. When the user inputs an integer index, the Postgres database is checked to see if the index has been previously requested. If so, the corresponding value is returned from Redis. If not, the value is calculated with a function in the worker module, which then publishes the value to Redis.
-![](http://github.com/clavance/fibonacci/blob/master/flow.png)
+![flow](http://github.com/clavance/fibonacci/blob/master/flow.png)
 
 nginx is used for routing, it runs on port 80 in the container (mapped to port 8080 locally). Upstream servers: client:3000, backend:5000.
-![](http://github.com/clavance/fibonacci/blob/master/routing.png)
+![routing](http://github.com/clavance/fibonacci/blob/master/routing.png)
 
 ## Instructions
 1. `git clone`
