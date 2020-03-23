@@ -20,3 +20,17 @@ after_success:
   - docker push clavance/fib-nginx
   - docker push clavance/fib-server
   - docker push clavance/fib-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: fibonacci
+  env: Fibonacci-env
+  bucket_name: elasticbeanstalk-us-east-2-306534435678
+  bucket_path: fibonacci
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
