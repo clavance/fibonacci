@@ -18,5 +18,7 @@ nginx is used for routing, it runs on port 80 in the container (mapped to port 8
 1. `git clone`
 2. Run `docker-compose up --build`
 3. If the app does not work on entering an integer index, `ctrl+c` to kill and re-run `docker-compose up`
+4. Enter Fibonacci indices as desired.
+5. Run `docker-compose down` to stop containers.
 ## Acknowledgements
 All credits to Stephen Grider's Docker tutorial [here](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/).
