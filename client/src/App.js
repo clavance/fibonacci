@@ -12,7 +12,7 @@ class App extends Component {
         <div className="App">
           <header>
             <br/><br/><br/>
-            <Link to="/">Return to Home Page</Link><br/>
+            <Link to="/">Return to Home Page!</Link><br/>
             <Link to="/notfound">Another Test Link</Link><br/>
           </header>
 
