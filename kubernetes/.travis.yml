@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - SHA=$(git rev-parse HEAD) #gets current git commit SHA, and assigns to variable SHA
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1 #disable prompts requiring user input
+before_install:
+  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null; # install Google Cloud SDK
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl # install kubectl cli
+  - gcloud auth activate-service-account --key-file service-account.json # google cloud credentials
+  - gcloud config set project multi-k8s-272618
+  - gcloud config set compute/zone us-central1-c
+  - gcloud container clusters get-credentials multi-cluster
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t clavance/fibonacci -f ./client/Dockerfile.dev ./client
+script:
+  - docker run -e CI=true clavance/fibonacci npm run test
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: kubernetes
