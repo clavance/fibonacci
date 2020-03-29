@@ -26,8 +26,6 @@ The diagram below depicts the Kubernetes architecture for the same web applicati
 
 Each module of the application is deployed separately, with each module having its own Cluster IP address created through service requests.
 
-Incoming traffic is handled by an [ingress-nginx](github.com/kubernetes/ingress-nginx) service (NB. _not_ [nginx](https://www.nginx.com/products/nginx/kubernetes-ingress-controller/) version), configured for running on GCP.
-
 To manage the storage to be used by the Postgres database, a [_persistent volume claim_](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/) is made, as defined in the _database-pvc.yaml_ file.
 
 <img src="https://raw.githubusercontent.com/clavance/fibonacci/master/k8s.png" width="550" height="300">
@@ -42,6 +40,11 @@ To check that this has been configured correctly, run `kubectl get secrets` whic
 NAME                  TYPE                                  DATA   AGE
 pgpassword            Opaque                                1      [ ]
 ```
+Incoming traffic is handled by an [ingress-nginx](github.com/kubernetes/ingress-nginx) service, configured for running on GCP. To set this up, run:
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+```
+
 Then, to deploy the application in Kubernetes (having cloned the _kubernetes_ branch of this repo), from the root directory run `kubectl apply -f kubernetes`.
 
 ## Acknowledgements
