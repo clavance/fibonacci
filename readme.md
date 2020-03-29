@@ -44,6 +44,10 @@ Incoming traffic is handled by an [ingress-nginx](github.com/kubernetes/ingress-
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
 ```
+To enable its use with minikube, run:
+```bash
+minikube addons enable ingress
+```
 
 Then, to deploy the application in Kubernetes (having cloned the _kubernetes_ branch of this repo), from the root directory run `kubectl apply -f kubernetes`.
 
