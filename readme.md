@@ -22,7 +22,13 @@ nginx is used for routing, it runs on port 80 in the container (mapped to port 8
 5. Run `docker-compose down` to stop containers.
 
 ## Kubernetes
-<img src="https://raw.githubusercontent.com/clavance/fibonacci/master/k8s.png" width="500" height="300">
+The diagram below depicts the Kubernetes architecture for the same web application. 
+
+Each module of the application is deployed separately, with each module having its own Cluster IP address created through service requests.
+
+To manage the storage to be used by the Postgres database, a [_persistent volume claim_](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/) is made, as defined in the _database-pvc.yaml_ file.
+
+<img src="https://raw.githubusercontent.com/clavance/fibonacci/master/k8s.png" width="550" height="300">
 See kubernetes branch for more info.
 
 Note that the postgres keys have been stored in a Kubernetes Secret object and referenced with the `secretKeyRef` field in the configuration files. To set this up, from root directory run:
