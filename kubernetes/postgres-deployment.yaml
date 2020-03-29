@@ -12,11 +12,22 @@ spec:
       labels:
         component: postgres
     spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-pvc
       containers:
         - name: postgres
           image: postgres
           env:
-            - name: POSTGRES_PASSWORD
-              value: mysecretpassword
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
           ports:
             - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage #must match volume name
+              mountPath: /var/lib/postgresql/data #where storage will be in the volume
+              subPath: postgres

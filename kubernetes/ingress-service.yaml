@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations: # higher level config for ingress object
+    kubernetes.io/ingress.class: nginx # create nginx ingress controller
+    nginx.ingress.kubernetes.io/rewrite-target: /$1 # rewrite /api/ for server requests to /
+spec:
+  rules:
+    - http:
+        paths: # routing paths
+          - path: /?(.*) # send / route requests to client
+            backend:
+              serviceName: client-clusterip-service
+              servicePort: 3000
+          - path: /api/?(.*) # send /api/ route requests to server
+            backend:
+              serviceName: server-clusterip-service
+              servicePort: 5000
