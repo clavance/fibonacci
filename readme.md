@@ -56,7 +56,7 @@ Then, to deploy the application (having cloned the _kubernetes_ branch of this r
 For a summary of your setup, run `minikube dashboard`. To check if the project is running correctly in dev, run `minikube ip` and navigate to the IP address in your browser, where you should see the app running.
 
 ### With Travis CI builds and GCP/GKE
-<img src="https://raw.githubusercontent.com/clavance/fibonacci/master/travis.png" width="400" height="500">
+<img src="https://raw.githubusercontent.com/clavance/fibonacci/master/travis.png" width="450" height="500">
 
 Automatic builds with Travis CI and GCP are configured. See the _travis.yml_ file in the _kubernetes_ branch.
 1. First create a Cluster in GCP (requires billing/credit card), eg. a cluster with 3 nodes of n1-standard-1(3.75GB) machines should suffice.
