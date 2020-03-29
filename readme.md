@@ -25,5 +25,16 @@ nginx is used for routing, it runs on port 80 in the container (mapped to port 8
 <img src="https://raw.githubusercontent.com/clavance/fibonacci/master/k8s.png" width="500" height="300">
 See kubernetes branch for more info.
 
+Note that the postgres keys have been stored in a Kubernetes Secret object and referenced with the `secretKeyRef` field in the configuration files. To set this up, from root directory run:
+```bash
+kubectl create secret generic pgpassword --from-literal PGPASSWORD=[your_desired_password]
+```
+To check that this has been configured correctly, run `kubectl get secrets` which should return:
+```bash
+NAME                  TYPE                                  DATA   AGE
+pgpassword            Opaque                                1      [ ]
+```
+Then, to deploy the application in Kubernetes (having cloned the _kubernetes_ branch of this repo), from the root directory run `kubectl apply -f kubernetes`.
+
 ## Acknowledgements
 All credits to Stephen Grider's Docker tutorial [here](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/).
