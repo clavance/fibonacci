@@ -77,14 +77,7 @@ app.post('/values', async (req, res)=> {
   const values = await pgClient.query('SELECT * from values');
   const check = values.rows;
   console.log(check);
-
-  // for (let item in check) {
-  //   console.log(check[item]['number']);
-  //   if (parseInt(check[item]['number'])==parseInt(index)) {
-  //     console.log("FUCK!");
-  //   }
-  // }
-
+      
   redisClient.hset('values', index, 'No value yet.'); //worker will replace string once calculated
 
   redisPublisher.publish('insert', index);
